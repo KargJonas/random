@@ -1,0 +1,51 @@
+* {
+    font-family: Lato, monospace;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    margin: 0%;
+    padding 0%;
+    overflow: hidden;
+    background-image: url("../resources/images/skybox2.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.row {
+    display: inline;
+}
+
+.tbButton {
+    border: none;
+    font-size: 18px;
+    min-width: 80px;
+    
+    background-color: #ccc;
+}
+
+.tbButton:hover {
+    background-color: #fff;
+}
+
+#topBar {
+    background-color: #222;
+    height: 60px;
+    padding: 10px;
+}
+
+#frameDisplay {
+    user-select: none;
+    color: #fff;
+    margin-top: 0%;
+    float: right;
+}
+
+@font-face {
+    font-family: Lato;
+    src: url("../resources/misc/Lato/Lato-Black.ttf");
+}

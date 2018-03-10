@@ -1,0 +1,36 @@
+* {
+    text-align: center;
+    font-family: monospace;
+}
+
+#mainHeader {
+    font-size: 70px;
+}
+
+#secondHeader {
+    font-size: 30px;
+}
+
+#ctxH {
+    border-style: solid;
+}
+
+#bButton {
+    color: white;
+    font-size: 30px;
+    background-color: black;
+    padding: 7px;
+    padding-right: 0px;
+}
+
+#nButton {
+    margin-left: 1em;
+    color: white;
+    font-size: 30px;
+    background-color: black;
+    padding: 7px;
+}
+
+a {
+    text-decoration: none;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Head -->
+        <title>Game</title>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <meta content="A web-based browsergame." />
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+
+        <!-- Style -->
+        <link rel="stylesheet" type="text/css" href="code/style.css">
+    </head>
+
+    <body>
+        <!-- Top Bar -->
+        <div id="topBar">
+            <div class="row">
+                <input type="button" id="testButton" class="tbButton" value="Dont press this button!" onclick="randomWorld()"> <!-- "tbButton" stands for "Top Bar Button" -->
+
+                <p id="frameDisplay">Framerate: ---</p>
+            </div>
+        </div>
+
+        <!-- Game -->
+        <div id="gameContainer"></div>
+
+        <!-- Librarys -->
+        <script type="text/javascript" src="resources/libs/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="resources/libs/p5.js"></script>
+
+        <!-- Code -->
+        <script type="text/javascript" src="code/game.js"></script>
+    </body>
+</html>

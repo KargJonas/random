@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+        <title>DrawJs</title>
+        <script type="text/javascript" src="draw.js"></script>
+    </head>
+    <body>
+        <canvas width="1920" height="1080" id="canvas"></canvas>
+
+        <script>
+            var elem = document.getElementById("canvas");
+            var cnv = elem.getContext("2d");
+            var x, y, lastX = -50, lastY = innerHeight / 2;
+            start();
+
+            function setup() {
+                autoResize();
+                fullScreen();
+            }
+
+            function draw() {
+                stroke(100, 200, 100);
+                x = millis() / 7.0 - 50;
+                y = Math.sin(millis() / 800.0) * 100  + innerHeight / 2;
+                line(x, y, lastX, lastY, 30, sinCol(millis() * 3, 100));
+                lastX = x;
+                lastY = y;
+            }
+        </script>
+
+        <style>
+            body {
+                margin: 0%;
+                overflow: hidden;
+            }
+
+            canvas {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </body>
+</html>
