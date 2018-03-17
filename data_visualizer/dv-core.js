@@ -48,6 +48,8 @@ function createInstances() {
             createType("piechart", attribs, dvElems[i]);
         } else if(attribs[0].replace("type:", "") == "histogram") {
             createType("histogram", attribs, dvElems[i]);
+        } else if(attribs[0].replace("type:", "") == "points") {
+            createType("points", attribs, dvElems[i]);
         } else {
             err("Unknown dv-type:", dvTypes[i].type);
         }
@@ -117,7 +119,7 @@ function draw() {
 
         ctx.clearRect(-border, -border, dvTypes[i].cnv.width, dvTypes[i].cnv.height);
 
-        if (dvTypes[i].type == "graph") { // *** Graph ***
+        if (dvTypes[i].type == "graph") { // Graph
             draw_nodes = true;
             draw_text = true;
             step_size_x = width / max_x;
@@ -186,10 +188,16 @@ function draw() {
                     ctx.ellipse(x * step_size_x, height - (dvTypes[i].data[x] * step_size_y), 2, 2, 0, 0, 2 * Math.PI);
                 }
             }
-            if (step_size_x >= 10 && draw_text) {
-                for (x = 0; x <= max_x; x++) {
-                    ctx.fillText(dvTypes[i].data[x], x *  step_size_x - ctx.measureText(dvTypes[i].data[x]).width / 2, height - (dvTypes[i].data[x] * step_size_y) - 8);
-                    ctx.fillText(x + 1, x * step_size_x, height + border / 2);
+            if (draw_text) {
+                if (step_size_x >= 10) {
+                    for (x = 0; x <= max_x; x++) {
+                        ctx.fillText(dvTypes[i].data[x], x *  step_size_x - ctx.measureText(dvTypes[i].data[x]).width / 2, height - (dvTypes[i].data[x] * step_size_y) - 8);
+                    }
+                }
+                if (step_size_x >= 20) {
+                    for (x = 0; x <= max_x; x++) {
+                        ctx.fillText(x + 1, x * step_size_x, height + border / 2 + 6);
+                    }
                 }
             }
             ctx.stroke();
@@ -240,10 +248,16 @@ function draw() {
             ctx.stroke();
 
             ctx.fillStyle = "#000";
-            if (step_size_x >= 10 && draw_text) {
-                for (x = 0; x <= max_x; x++) {
-                    ctx.fillText(dvTypes[i].data[x], x *  step_size_x + step_size_x / 2 - ctx.measureText(dvTypes[i].data[x]).width / 2, height - (dvTypes[i].data[x] * step_size_y) - 8);
-                    ctx.fillText(x + 1, x * step_size_x, height + border / 2 + 4);
+            if (draw_text) {
+                if (step_size_x >= 10) {
+                    for (x = 0; x <= max_x; x++) {
+                        ctx.fillText(dvTypes[i].data[x], x *  step_size_x, height - (dvTypes[i].data[x] * step_size_y) - 6);
+                    }
+                }
+                if (step_size_x >= 20) {
+                    for (x = 0; x <= max_x; x++) {
+                        ctx.fillText(x + 1, x * step_size_x, height + border / 2 + 6);
+                    }
                 }
             }
 
@@ -251,7 +265,7 @@ function draw() {
             step_size_y = null;
             draw_text = null;
             fill_color = null;
-        } else if (dvTypes[i].type == "piechart") { // *** Piechart ***
+        } else if (dvTypes[i].type == "piechart") { // Piechart
             draw_text = true;
             min_size = false;
             draw_border = true;
@@ -326,6 +340,76 @@ function draw() {
                 }
                 ctx.stroke();
             }
+        } else if (dvTypes[i].type == "points") { // "Pointio-gram"
+            draw_text = true;
+            point_size = 5;
+            step_size_x = width / max_x;
+            step_size_y = height / max_y;
+
+            if (dvTypes[i].additional != undefined) {
+                for (a = 0; a < dvTypes[i].additional.length; a++) {
+                    if (dvTypes[i].additional[a].startsWith("draw-text:")) {
+                        if (dvTypes[i].additional[a].replace("draw-text:", "") == "false") {
+                            draw_text = false;
+                        } else if (dvTypes[i].additional[a].replace("draw-text:", "") == "true") {
+                            draw_text = true;
+                        } else {
+                            err("Invalid draw-text vaule:", dvTypes[i].additional[a].replace("draw-text:", ""));
+                        }
+                    } else if (dvTypes[i].additional[a].startsWith("point-size:")) {
+                        point_size = parseInt(dvTypes[i].additional[a].replace("point-size:", ""));
+                    }
+                }
+            }
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.strokeStyle = "#bbb";
+            ctx.rect(0, 0, width, height);
+            if (step_size_x >= 10) {
+                for (x = 0; x <= max_x; x++) {
+                    ctx.moveTo(x * step_size_x, 0);
+                    ctx.lineTo(x * step_size_x, height);
+                }
+            }
+            if (step_size_y >= 10) {
+                for (y = 0; y <= max_y; y++) {
+                    ctx.moveTo(0, y * step_size_y);
+                    ctx.lineTo(width, y * step_size_y);
+                }
+            }
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.fillStyle = dvTypes[i].color;
+            ctx.moveTo(0, height - (dvTypes[i].data[0] * step_size_y));
+            for (x = 0; x <= max_x; x++) {
+                ctx.beginPath();
+                ctx.moveTo(x * step_size_x, height - (dvTypes[i].data[x] * step_size_y));
+                ctx.ellipse(x * step_size_x, height - (dvTypes[i].data[x] * step_size_y), point_size, point_size, 0, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            ctx.beginPath();
+            ctx.fillStyle = "#000";
+            if (draw_text) {
+                if (step_size_x >= 10) {
+                    offset = -8;
+                    if (point_size > 5) {
+                        offset = 0;
+                    }
+                    for (x = 0; x <= max_x; x++) {
+                        ctx.fillText(dvTypes[i].data[x], x *  step_size_x - ctx.measureText(dvTypes[i].data[x]).width / 2, height - (dvTypes[i].data[x] * step_size_y) + offset);
+                    }
+                }
+                if (step_size_x >= 20) {
+                    for (x = 0; x <= max_x; x++) {
+                        ctx.fillText(x + 1, x * step_size_x, height + border / 2 + 6);
+                    }
+                }
+            }
+            ctx.stroke();
+            point_size = null;
+            step_size_x = null;
+            step_size_y = null;
+            draw_text = null;
         }
     }
     ctx = null;

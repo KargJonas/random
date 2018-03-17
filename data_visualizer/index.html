@@ -8,19 +8,23 @@
         <center>
             <h1 style="font-size: 60px">My Data</h1>
             <button onclick="change_data()" style="font-size: 22px;">Random</button>
-            <div dv="graph width:600 height:300 color:#88f draw-nodes:true draw-text:true node-color:#000 data:my_data"></div>
-            <div dv="histogram width:600 height:300 color:#8f8 fill-color:#bfb data:my_data"></div>
-            <div dv="piechart width:400 height:400 color:#88f min-size:true fill-color:#bbf draw-nodes:false data:my_data"></div>
+            <div style="display: grid; grid-gap: 20px; grid-template-columns: 1fr, 1fr, 1fr;">
+                <div dv="graph width:600 height:300 color:#88f draw-nodes:true draw-text:true node-color:#000 data:my_data"></div>
+                <div dv="histogram width:600 height:300 color:#8f8 fill-color:#bfb data:my_data"></div>
+                <div dv="points width:600 height:300 color:rgba(255,100,100,0.4) point-size:60 data:my_data"></div>
+                <div dv="points width:600 height:300 color:#000 point-size:5 data:my_data"></div>
+                <div dv="piechart width:600 height:300 color:#88f min-size:true fill-color:#bbf draw-nodes:false data:my_data"></div>
+            </div>
         </center>
         <script>
             var my_data = [];
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 10; i++) {
                 my_data.push(parseInt(Math.random() * 1000));
             }
 
             function change_data() {
                 my_data = [];
-                for (i = 0; i < 20; i++) {
+                for (i = 0; i < 10; i++) {
                     my_data.push(parseInt(Math.random() * 1000));
                 }
                 update();
