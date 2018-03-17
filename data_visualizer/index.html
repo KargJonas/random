@@ -7,27 +7,24 @@
     <body style="font-family: monospace">
         <center>
             <h1 style="font-size: 60px">My Data</h1>
-<!--            <button onclick="change_data()" style="font-size: 22px;">Random</button>-->
-<!--
+            <button onclick="change_data()" style="font-size: 22px;">Random</button>
             <div dv="graph width:600 height:300 color:#88f draw-nodes:true draw-text:true node-color:#000 data:my_data"></div>
             <div dv="histogram width:600 height:300 color:#8f8 fill-color:#bfb data:my_data"></div>
--->
             <div dv="piechart width:400 height:400 color:#88f fill-color:#bbf draw-nodes:false data:my_data"></div>
         </center>
         <script>
-            var my_data = [45, 34, 7, 50, 45, 19];
-//            var my_data = [];
-//            for (i = 0; i < 20; i++) {
-//                my_data.push(parseInt(Math.random() * 1000));
-//            }
-//
-//            function change_data() {
-//                my_data = [];
-//                for (i = 0; i < 20; i++) {
-//                    my_data.push(parseInt(Math.random() * 1000));
-//                }
-//                update();
-//            }
+            var my_data = [];
+            for (i = 0; i < 20; i++) {
+                my_data.push(parseInt(Math.random() * 1000));
+            }
+
+            function change_data() {
+                my_data = [];
+                for (i = 0; i < 20; i++) {
+                    my_data.push(parseInt(Math.random() * 1000));
+                }
+                update();
+            }
         </script>
         <script type="text/javascript" src="dv-core.min.js"></script>
     </body>
