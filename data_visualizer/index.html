@@ -1,35 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Data Visualizer</title>
-    </head>
-    <body style="font-family: monospace">
-        <center>
-            <h1 style="font-size: 60px">My Data</h1>
-            <button onclick="change_data()" style="font-size: 22px;">Random</button>
-            <div style="display: grid; grid-gap: 20px; grid-template-columns: 1fr, 1fr, 1fr;">
-                <div dv="graph width:600 height:300 color:#88f draw-nodes:true draw-text:true node-color:#000 data:my_data"></div>
-                <div dv="histogram width:600 height:300 color:#8f8 fill-color:#bfb data:my_data"></div>
-                <div dv="points width:600 height:300 color:rgba(255,100,100,0.4) point-size:60 data:my_data"></div>
-                <div dv="points width:600 height:300 color:#000 point-size:5 data:my_data"></div>
-                <div dv="piechart width:600 height:300 color:#88f min-size:true fill-color:#bbf draw-nodes:false data:my_data"></div>
-            </div>
-        </center>
-        <script>
-            var my_data = [];
-            for (i = 0; i < 10; i++) {
-                my_data.push(parseInt(Math.random() * 1000));
-            }
 
-            function change_data() {
-                my_data = [];
-                for (i = 0; i < 10; i++) {
-                    my_data.push(parseInt(Math.random() * 1000));
-                }
-                update();
+<head>
+    <meta charset="UTF-8">
+    <title>Data Visualizer</title>
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"> -->
+</head>
+
+<body style="font-family: monospace">
+    <center>
+        <h1 style="font-size: 60px">Data Visualizer</h1>
+        <a href="https://github.com/KargJonas/data-visualizer" style="font-size: 22px;">The libray behind this</a>
+        <br>
+        <br>
+        <br>
+        <button onclick="change_data()" style="font-size: 22px;">Random</button>
+        <h2>Graph (type:graph):</h2>
+        <div dv="graph width:600 height:300 color:#88f draw-nodes:true draw-text:true node-color:#000 data:my_data"></div>
+        <br>
+        <h2>Histogram (type:histogram):</h2>
+        <div dv="histogram width:600 height:300 color:#8f8 fill-color:#bfb data:my_data"></div>
+        <br>
+        <h2>"Pointio-Gram" (type:points):</h2>
+        <div dv="points width:600 height:300 color:rgba(255,100,100,0.4) point-size:60 data:my_data"></div>
+        <br>
+        <h2>"Pointio-Gram" (type:points):</h2>
+        <div dv="points width:600 height:300 color:#000 point-size:5 data:my_data"></div>
+        <br>
+        <h2>"Pie chart" (type:piechart):</h2>
+        <div dv="piechart width:600 height:300 color:#88f min-size:true fill-color:#bbf draw-nodes:false data:my_data"></div>
+        <br>
+    </center>
+    <script>
+        var my_data = [];
+        for (i = 0; i < 10; i++) {
+            my_data.push(parseInt(Math.random() * 10));
+        }
+
+        function change_data() {
+            my_data = [];
+            for (i = 0; i < 10; i++) {
+                my_data.push(parseInt(Math.random() * 10));
             }
-        </script>
-        <script type="text/javascript" src="dv-core.min.js"></script>
-    </body>
+            update();
+        }
+
+        // Display BTC course
+        // setInterval(() => {
+        //     $.ajax({
+        //         async: true,
+        //         type: "GET",
+        //         url: "https://api.coindesk.com/v1/bpi/currentprice.json",
+        //         success: (result) => {
+        //             my_data.push(JSON.parse(result).bpi.EUR.rate_float);
+        //             my_data.shift();
+        //             update();
+        //         }
+        //     });
+        // }, 2000);
+    </script>
+    <script type="text/javascript" src="dv-core.min.js"></script>
+</body>
+
 </html>
